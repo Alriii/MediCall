@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>MediTrack</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>

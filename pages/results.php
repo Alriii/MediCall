@@ -21,6 +21,7 @@ if ($record === null) {
 <html>
 <head>
     <title>MediTrack - Results</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>

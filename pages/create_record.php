@@ -116,6 +116,7 @@ if (isset($_POST["recordType"], $_POST["patientName"], $_POST["recordDate"])) {
 <html>
 <head>
     <title>MediTrack</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>

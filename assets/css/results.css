@@ -1,0 +1,26 @@
+/* =========================================================
+   RESULTS SUMMARY
+   ========================================================= */
+
+body > p {
+    max-width: 720px;
+    margin: 0 auto 14px;
+    padding: 1rem 1.2rem;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-medium);
+    box-shadow: var(--shadow-card);
+    text-align: left;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+body > p:first-of-type {
+    margin-top: 18px;
+}
+
+body > a {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+}

@@ -1,0 +1,44 @@
+/* =========================================================
+   RESPONSIVE BEHAVIOR
+   ========================================================= */
+
+@media (max-width: 700px) {
+    body {
+        padding: 28px 14px;
+    }
+
+    body > h1 {
+        margin-bottom: 10px;
+        letter-spacing: -0.03em;
+    }
+
+    body > p {
+        font-size: 0.96rem;
+        padding: 0 8px;
+    }
+
+    body > form {
+        padding: 22px 16px;
+        border-radius: 22px;
+    }
+
+    body > form > div {
+        padding: 14px 14px 8px;
+    }
+
+    body > form input,
+    body > form select {
+        padding: 0.82rem 0.9rem;
+    }
+
+    body > form button,
+    body > form a button,
+    body > a {
+        width: 100%;
+    }
+
+    body > form a {
+        display: block;
+        margin: 12px 0 0;
+    }
+}
