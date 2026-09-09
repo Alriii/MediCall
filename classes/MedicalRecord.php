@@ -24,4 +24,10 @@ class MedicalRecord
     {
         return $this->recordDate;
     }
+
+    //method to get the type of record
+    public function getType()
+    {
+        return "Medical Record";
+    }
 }

@@ -35,4 +35,9 @@ public function getDosage()
     return $this->dosage;
 }
 
+public function getType()
+{
+    return "Medication Record";
+
+}
 }
