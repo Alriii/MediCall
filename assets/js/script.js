@@ -1,65 +1,68 @@
-    // Get the record type dropdown
-    const recordType = document.querySelector('select[name="recordType"]');
+// USER INPUT: Get the record type dropdown so JavaScript can detect the user's selection
+const recordType = document.querySelector('select[name="recordType"]');
 
-    // Get the blood pressure input
-    const bloodPressure = document.querySelector('input[name="bloodPressure"]');
+// USER INPUT: Get the blood pressure input from the form
+const bloodPressure = document.querySelector('input[name="bloodPressure"]');
 
-    // Get the heart rate input
-    const heartRate = document.querySelector('input[name="heartRate"]');
+// USER INPUT: Get the heart rate input from the form
+const heartRate = document.querySelector('input[name="heartRate"]');
 
-    // Get the whole medicine field group
-    const medicineField = document.getElementById("medicineField");
+// DATA PROCESSING: Get the whole medicine field group so JavaScript can show or hide it
+const medicineField = document.getElementById("medicineField");
 
-    // Get the whole vital sign field group
-    const vitalField = document.getElementById("vitalField");
+// DATA PROCESSING: Get the whole vital sign field group so JavaScript can show or hide it
+const vitalField = document.getElementById("vitalField");
 
-    // Get the whole appointment field group
-    const appointmentField = document.getElementById("appointmentField");
+// DATA PROCESSING: Get the whole appointment field group so JavaScript can show or hide it
+const appointmentField = document.getElementById("appointmentField");
 
-    // Hide all record-specific fields when the page first loads
-    medicineField.style.display = "none";
-    appointmentField.style.display = "none";
-    vitalField.style.display = "none";
+// DATA PROCESSING: Hide all record-specific fields when the page first loads
+medicineField.style.display = "none";
+appointmentField.style.display = "none";
+vitalField.style.display = "none";
 
-    // Run this when the user changes the record type
-    recordType.addEventListener("change", function () {
+// USER INPUT: Listen for changes when the user selects a different record type
+recordType.addEventListener("change", function () {
 
-        // Get the selected record type
-        const selectedType = recordType.value;
+    // DATA PROCESSING: Get the record type selected by the user
+    const selectedType = recordType.value;
 
-        if (selectedType === "medication") {
+    // Check if the user selected Medication
+    if (selectedType === "medication") {
 
-            // Show medicine fields
-            medicineField.style.display = "block";
+        // DATA PROCESSING: Show the fields needed for a medication record
+        medicineField.style.display = "block";
 
-            // Hide appointment and vital fields
-            appointmentField.style.display = "none";
-            vitalField.style.display = "none";
+        // Hide fields that are not needed for Medication
+        appointmentField.style.display = "none";
+        vitalField.style.display = "none";
 
-        } else if (selectedType === "appointment") {
+    // Check if the user selected Appointment
+    } else if (selectedType === "appointment") {
 
-            // Hide medicine and vital fields
-            medicineField.style.display = "none";
-            vitalField.style.display = "none";
+        // Hide fields that are not needed for Appointment
+        medicineField.style.display = "none";
+        vitalField.style.display = "none";
 
-            // Show appointment fields
-            appointmentField.style.display = "block";
+        // DATA PROCESSING: Show the fields needed for an appointment record
+        appointmentField.style.display = "block";
 
-        } else if (selectedType === "vital") {
+    // Check if the user selected Vital Sign
+    } else if (selectedType === "vital") {
 
-            // Hide medicine and appointment fields
-            medicineField.style.display = "none";
-            appointmentField.style.display = "none";
+        // Hide fields that are not needed for Vital Sign
+        medicineField.style.display = "none";
+        appointmentField.style.display = "none";
 
-            // Show vital fields
-            vitalField.style.display = "block";
+        // DATA PROCESSING: Show the fields needed for a vital record
+        vitalField.style.display = "block";
 
-        } else {
+    } else {
 
-            // Hide all fields when no record type is selected
-            medicineField.style.display = "none";
-            appointmentField.style.display = "none";
-            vitalField.style.display = "none";
-        }
+        // DATA PROCESSING: Hide all record-specific fields when no type is selected
+        medicineField.style.display = "none";
+        appointmentField.style.display = "none";
+        vitalField.style.display = "none";
+    }
 
-    });
+});

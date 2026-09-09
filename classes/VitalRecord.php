@@ -1,40 +1,43 @@
 <?php
 
+// DATA PROCESSING: Load the parent MedicalRecord class
 require_once "MedicalRecord.php";
 
-// Making VitalRecord (child) inherit from MedicalRecord (parent)
+// CHILD CLASS + INHERITANCE:
+// VitalRecord is a child class that inherits from the MedicalRecord parent class
 class VitalRecord extends MedicalRecord
 {
-    // Properties specific to VitalRecord
+    // ENCAPSULATION: Private properties that can only be directly accessed inside VitalRecord
     private $bloodPressure;
     private $heartRate;
 
-    // Constructor for creating a VitalRecord object
+    // CONSTRUCTOR: Creates a VitalRecord object and receives both parent and child information
     public function __construct($patientName, $recordDate, $bloodPressure, $heartRate)
     {
-        // Calling the parent constructor to set the inherited patient name and record date
+        // INHERITANCE: Call the parent constructor to set the inherited patient name and record date
         parent::__construct($patientName, $recordDate);
 
-        // Storing the blood pressure in this VitalRecord object
+        // Store the blood pressure in this VitalRecord object
         $this->bloodPressure = $bloodPressure;
 
-        // Storing the heart rate in this VitalRecord object
+        // Store the heart rate in this VitalRecord object
         $this->heartRate = $heartRate;
     }
 
-    // Getter method for the blood pressure
+    // ENCAPSULATION: Public getter provides controlled access to the private blood pressure
     public function getBloodPressure()
     {
         return $this->bloodPressure;
     }
 
-    // Getter method for the heart rate
+    // ENCAPSULATION: Public getter provides controlled access to the private heart rate
     public function getHeartRate()
     {
         return $this->heartRate;
     }
 
-    // Overriding the getType() method from the parent class
+    // METHOD OVERRIDING: VitalRecord replaces the parent's getType() behavior with its own
+    // POLYMORPHISM: The same getType() method can return a different result for each child class
     public function getType()
     {
         return "Vital Record";

@@ -1,72 +1,72 @@
 <?php
 
-// Start the PHP session so data can be shared between pages
-session_start();
+// DATA PROCESSING: Load the shared PHP setup
+require_once "../includes/bootstrap.php";
 
-require_once "../classes/MedicationRecord.php";
-require_once "../classes/AppointmentRecord.php";
-require_once "../classes/VitalRecord.php";
-
-// Check if the main form fields were submitted
+// USER INPUT + DATA PROCESSING: Check if the main form fields were submitted
 if (isset($_POST["recordType"], $_POST["patientName"], $_POST["recordDate"])) {
 
-    // Get the record type from the form
+    // USER INPUT: Get the selected record type from the form
     $recordType = $_POST["recordType"];
 
-    // Get the patient's name from the form
+    // USER INPUT: Get the patient's name from the form
     $patientName = $_POST["patientName"];
 
-    // Get the record date from the form
+    // USER INPUT: Get the record date from the form
     $recordDate = $_POST["recordDate"];
 
-    // Get the medicine name if it was submitted
+    // USER INPUT: Get the medicine name if it was submitted
     $medicineName = $_POST["medicineName"] ?? "";
 
-    // Get the dosage if it was submitted
+    // USER INPUT: Get the dosage if it was submitted
     $dosage = $_POST["dosage"] ?? "";
 
-    // Get the blood pressure if it was submitted
+    // USER INPUT: Get the blood pressure if it was submitted
     $bloodPressure = $_POST["bloodPressure"] ?? "";
 
-    // Get the heart rate if it was submitted
+    // USER INPUT: Get the heart rate if it was submitted
     $heartRate = $_POST["heartRate"] ?? "";
 
-    // Get the doctor's name if it was submitted
+    // USER INPUT: Get the doctor's name if it was submitted
     $doctorName = $_POST["doctorName"] ?? "";
 
-    // Get the appointment time if it was submitted
+    // USER INPUT: Get the appointment time if it was submitted
     $appointmentTime = $_POST["appointmentTime"] ?? "";
 
-    // Check if the common fields are empty
+
+    // INPUT VALIDATION: Check if the common fields are empty
     if (empty($patientName) || empty($recordDate)) {
 
-        // Show an error message
+        // INPUT VALIDATION: Show an error message if a required field is empty
         echo "Please complete the patient name and record date.";
 
-    // Check the fields required for a medication record
+
+    // INPUT VALIDATION: Check the fields required for a medication record
     } elseif ($recordType == "medication" && (empty($medicineName) || empty($dosage))) {
 
-        // Show an error message
         echo "Please complete the medicine name and dosage.";
 
-    // Check the fields required for an appointment record
+
+    // INPUT VALIDATION: Check the fields required for an appointment record
     } elseif ($recordType == "appointment" && (empty($doctorName) || empty($appointmentTime))) {
 
-        // Show an error message
         echo "Please complete the doctor name and appointment time.";
 
-    // Check the fields required for a vital record
+
+    // INPUT VALIDATION: Check the fields required for a vital record
     } elseif ($recordType == "vital" && (empty($bloodPressure) || empty($heartRate))) {
 
-        // Show an error message
         echo "Please complete the blood pressure and heart rate.";
 
     } else {
 
-        // Create the correct child object based on the selected record type
+        // DATA PROCESSING: Create the correct child object based on the selected record type
+
         if ($recordType == "medication") {
 
-            // Create a MedicationRecord object
+            // CHILD CLASS: MedicationRecord inherits from the parent MedicalRecord
+            // INHERITANCE: extends is used inside MedicationRecord.php
+            // CONSTRUCTOR: Create a MedicationRecord object using the constructor
             $record = new MedicationRecord(
                 $patientName,
                 $recordDate,
@@ -76,7 +76,8 @@ if (isset($_POST["recordType"], $_POST["patientName"], $_POST["recordDate"])) {
 
         } elseif ($recordType == "appointment") {
 
-            // Create an AppointmentRecord object
+            // CHILD CLASS: AppointmentRecord inherits from the parent MedicalRecord
+            // CONSTRUCTOR: Create an AppointmentRecord object using the constructor
             $record = new AppointmentRecord(
                 $patientName,
                 $recordDate,
@@ -86,7 +87,8 @@ if (isset($_POST["recordType"], $_POST["patientName"], $_POST["recordDate"])) {
 
         } elseif ($recordType == "vital") {
 
-            // Create a VitalRecord object
+            // CHILD CLASS: VitalRecord inherits from the parent MedicalRecord
+            // CONSTRUCTOR: Create a VitalRecord object using the constructor
             $record = new VitalRecord(
                 $patientName,
                 $recordDate,
@@ -95,13 +97,14 @@ if (isset($_POST["recordType"], $_POST["patientName"], $_POST["recordDate"])) {
             );
         }
 
-        // Store the record object in the session
+        // POLYMORPHISM: The same $record variable can hold different child objects
+        // depending on the record type selected by the user
         $_SESSION["record"] = $record;
 
-        // Store the record type in the session
+        // DATA PROCESSING: Store the selected record type for the results page
         $_SESSION["recordType"] = $recordType;
 
-        // Go to the results page
+        // DATA PROCESSING: Send the user to the results page
         header("Location: results.php");
         exit;
     }
@@ -119,11 +122,12 @@ if (isset($_POST["recordType"], $_POST["patientName"], $_POST["recordDate"])) {
 
     <h1>MediTrack</h1>
 
-    <!-- Form for entering a new medical record -->
+    <!-- USER INPUT: Form used by the user to enter a medical record -->
     <form method="POST">
 
-        <!-- Choose the type of medical record -->
+        <!-- USER INPUT: Select the type of medical record -->
         <label>Record Type:</label>
+
         <select name="recordType" required>
             <option value="">Select Record Type</option>
             <option value="medication">Medication</option>
@@ -133,28 +137,26 @@ if (isset($_POST["recordType"], $_POST["patientName"], $_POST["recordDate"])) {
 
         <br><br>
 
-        <!-- Input for the patient's name -->
+        <!-- USER INPUT: Enter the patient's name -->
         <label>Patient Name:</label>
         <input type="text" name="patientName" required>
 
         <br><br>
 
-        <!-- Input for the record date -->
+        <!-- USER INPUT: Enter the record date -->
         <label>Record Date:</label>
         <input type="date" name="recordDate" required>
 
         <br><br>
 
-        <!-- Medicine field group -->
+        <!-- USER INPUT: Fields for MedicationRecord -->
         <div id="medicineField">
 
-            <!-- Input for the medicine name -->
             <label>Medicine Name:</label>
             <input type="text" name="medicineName">
 
             <br><br>
 
-            <!-- Input for the medicine dosage -->
             <label>Dosage:</label>
             <input type="text" name="dosage">
 
@@ -162,16 +164,14 @@ if (isset($_POST["recordType"], $_POST["patientName"], $_POST["recordDate"])) {
 
         </div>
 
-        <!-- Vital sign field group -->
+        <!-- USER INPUT: Fields for VitalRecord -->
         <div id="vitalField">
 
-            <!-- Input for the blood pressure -->
             <label>Blood Pressure:</label>
             <input type="text" name="bloodPressure" placeholder="e.g. 120/80">
 
             <br><br>
 
-            <!-- Input for the heart rate -->
             <label>Heart Rate:</label>
             <input type="text" name="heartRate" placeholder="e.g. 72 bpm">
 
@@ -179,16 +179,14 @@ if (isset($_POST["recordType"], $_POST["patientName"], $_POST["recordDate"])) {
 
         </div>
 
-        <!-- Appointment field group -->
+        <!-- USER INPUT: Fields for AppointmentRecord -->
         <div id="appointmentField">
 
-            <!-- Input for the doctor's name -->
             <label>Doctor Name:</label>
             <input type="text" name="doctorName">
 
             <br><br>
 
-            <!-- Input for the appointment time -->
             <label>Appointment Time:</label>
             <input type="time" name="appointmentTime">
 
@@ -196,10 +194,13 @@ if (isset($_POST["recordType"], $_POST["patientName"], $_POST["recordDate"])) {
 
         </div>
 
-        <!-- Submit button -->
+        <!-- USER INPUT: Submit the entered medical record -->
         <button type="submit">Create Record</button>
-        <a href="../index.php"><button type="button">Home</button>
-</a>
+
+        <!-- USER INPUT: Return to the home page -->
+        <a href="../index.php">
+            <button type="button">Home</button>
+        </a>
 
     </form>
 
