@@ -40,4 +40,5 @@ public function getType()
     return "Medication Record";
 
 }
+
 }
